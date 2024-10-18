@@ -1,7 +1,8 @@
 {
     "scripts": {
         "build": "tsc",
-        "format": "npx prettier --write src"
+        "format": "npx prettier --write src",
+        "commands": "tsc && node deploy-commands.js"
     },
     "dependencies": {
         "discord.js": "^14.16.3",
