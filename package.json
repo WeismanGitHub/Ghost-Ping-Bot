@@ -1,6 +1,7 @@
 {
     "scripts": {
-        "build": "tsc"
+        "build": "tsc",
+        "format": "npx prettier --write src"
     },
     "dependencies": {
         "discord.js": "^14.16.3",
