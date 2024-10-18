@@ -1,6 +1,7 @@
 {
     "scripts": {
         "build": "tsc",
+        "dev": "npx nodemon ./src/index.ts",
         "format": "npx prettier --write src",
         "commands": "tsc && node deploy-commands.js"
     },
@@ -10,6 +11,8 @@
     },
     "devDependencies": {
         "@types/node": "^22.7.6",
+        "nodemon": "^3.1.7",
+        "ts-node": "^10.9.2",
         "typescript": "^5.6.3"
     }
 }

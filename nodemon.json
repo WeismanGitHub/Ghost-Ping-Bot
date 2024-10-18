@@ -1,0 +1,5 @@
+{
+    "watch": ["src/*"],
+    "delay": "100",
+    "ts": "ts-node"
+}
