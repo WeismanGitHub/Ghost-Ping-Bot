@@ -1,15 +1,10 @@
+import { Client, ClientOptions, Collection, Events, GatewayIntentBits } from 'discord.js';
+import CustomError from './custom-error';
 import sequelize from './db/sequelize';
+import { ErrorEmbed } from './embeds';
 import { readdirSync } from 'fs';
 import { join } from 'path';
 import dotenv from 'dotenv';
-import {
-    Client,
-    ClientOptions,
-    Collection,
-    EmbedBuilder,
-    Events,
-    GatewayIntentBits,
-} from 'discord.js';
 
 class CustomClient extends Client {
     commands: Collection<unknown, unknown>;
@@ -54,9 +49,7 @@ client.on(Events.InteractionCreate, async (interaction) => {
     } catch (err) {
         console.error(err);
 
-        const embed = new EmbedBuilder();
-
-        embed.setDescription('error');
+        const embed = new ErrorEmbed(err instanceof CustomError ? err.message : null);
 
         if (interaction.replied || interaction.deferred) {
             interaction.followUp({ embeds: [embed], ephemeral: true });
