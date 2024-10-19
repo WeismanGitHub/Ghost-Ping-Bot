@@ -7,13 +7,12 @@ class CustomEmbed extends EmbedBuilder {
 }
 
 class ErrorEmbed extends CustomEmbed {
-    constructor(description: string | null = null, statusCode: number | null = null) {
+    constructor(description: string | null = null) {
         super();
 
-        this.setTitle("There's been an error!")
+        this.setTitle('An error occurred')
             .setDescription(description)
-            .setColor('#FF0000') // Red
-            .setFooter({ text: `Status Code: ${statusCode ?? 'Unknown'}` });
+            .setColor('#FF0000'); // Red
     }
 }
 
