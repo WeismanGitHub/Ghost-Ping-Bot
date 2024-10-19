@@ -26,12 +26,12 @@ const client = new CustomClient({
 });
 
 const commandsPath = join(__dirname, 'commands');
-const commandFiles = readdirSync(commandsPath).filter((file) => file.endsWith('.js'));
+const commandFiles = readdirSync(commandsPath);
 
 for (const file of commandFiles) {
     const filePath = join(commandsPath, file);
-    const command = require(filePath);
-    
+    const command = require(filePath).default;
+
     if (!command.data || !command.execute) {
         throw new Error(
             `The command at ${filePath} is missing a required "data" or "execute" property.`
