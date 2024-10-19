@@ -12,7 +12,7 @@ export default {
     data: new SlashCommandBuilder()
         .setName('set-channel')
         .setContexts(InteractionContextType.Guild)
-        .setDescription('Set the channel from which to ghost ping new members.')
+        .setDescription('Set the channel where new members will be ghost pinged.')
         .setDefaultMemberPermissions(PermissionFlagsBits.Administrator)
         .addChannelOption((option) =>
             option
