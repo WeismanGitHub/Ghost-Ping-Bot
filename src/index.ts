@@ -1,10 +1,18 @@
-import { Client, ClientOptions, Collection, Events, GatewayIntentBits } from 'discord.js';
+import {
+    Client,
+    ClientOptions,
+    Collection,
+    Events,
+    GatewayIntentBits,
+    userMention,
+} from 'discord.js';
 import CustomError from './custom-error';
 import sequelize from './db/sequelize';
 import { ErrorEmbed } from './embeds';
 import { readdirSync } from 'fs';
 import { join } from 'path';
 import dotenv from 'dotenv';
+import Guild from './db/Guild';
 
 class CustomClient extends Client {
     commands: Collection<unknown, unknown>;
@@ -62,7 +70,26 @@ client.on(Events.InteractionCreate, async (interaction) => {
 });
 
 client.on(Events.GuildMemberAdd, async (member) => {
-    console.log(member);
+    try {
+        const guild = await Guild.findOne({ where: { id: member.guild.id } });
+
+        if (!guild) {
+            return;
+        }
+
+        const channel = await client.channels.fetch(guild.channelId);
+
+        if (!channel) {
+            return;
+        }
+
+        if (channel.isSendable()) {
+            const message = await channel.send({ content: userMention(member.id) });
+            await message.delete();
+        }
+    } catch (err) {
+        console.error(err);
+    }
 });
 
 dotenv.configDotenv();
