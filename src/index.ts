@@ -47,7 +47,9 @@ client.on(Events.InteractionCreate, async (interaction) => {
         // @ts-ignore
         await command.execute(interaction);
     } catch (err) {
-        console.error(err);
+        if (!(err instanceof CustomError)) {
+            console.error(err);
+        }
 
         const embed = new ErrorEmbed(err instanceof CustomError ? err.message : null);
 
